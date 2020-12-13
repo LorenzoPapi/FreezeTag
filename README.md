@@ -1,13 +1,13 @@
 ## FreezeTag
 
-*FreezeTag* is a plugin for the Among Us private server called [Impostor](https://github.com/Impostor/Impostor) that adds a new gamemode to Among Us. When the game will start, the impostors will be coloured in **RED**, the normal crewmates in **GREEN**. When an impostor gets near a crewmate, he'll *freeze* him, and the crewmate won't be able to move and will become **BLUE**. If all the crewmate become frozen, the impostors win; if the crewmate do all the tasks they win.
+*FreezeTag* is a plugin for the Among Us private server called [Impostor](https://github.com/Impostor/Impostor) that adds a new gamemode to Among Us. When the game will start, the impostors will be coloured in **RED**, the normal crewmates in **GREEN**. When an impostor gets near a crewmate, he'll *freeze* him, and the crewmate won't be able to move and will become **BLUE**. If all the crewmates become frozen, the impostors win; if the crewmates do all the tasks they win.
 
 **Note: This plugin uses a modified Impostor server version, you need it to make the plugin work.**
 
 ## Installation
-1. Set up an [Impostor server](https://github.com/Impostor/Impostor) by following the instructions on their Github page. Download is [here]().
-2. Find the [latest release](https://github.com/LorenzoPapi/FreezeTag/releases) of the plugin. 
-3. Drop the FreezeTag.dll file in the `plugin` folder of your Impostor server.
+1. Download the modified server from [here](https://github.com/LorenzoPapi/FreezeTag/releases) and download the [latest release](https://github.com/LorenzoPapi/FreezeTag/releases) of the plugin.
+2. Set up the [Impostor server](https://github.com/Impostor/Impostor) by following the instructions on their Github page.
+3. Drop the FreezeTag.dll file in the `plugins` folder of your Impostor server.
 4. To play with your client on your private server, see the instructions on the [Impostor](https://github.com/Impostor/Impostor) page.
 
 ## How it works
@@ -18,13 +18,12 @@
 
 - If crewmates finish all their tasks, they win. If impostors kill all of the crewmate, they win.
 
-- In the Among Us lobby, the host can use the `/ftag on` and `/ftag off` commands in the chat to turn the FreezeTag mode on and off. Additionally, any player can write `/help` to get an explanation about FreezeTag mode.
+- In the Among Us lobby, the host can use the `/ftag on` and `/ftag off` commands in the chat to turn the FreezeTag mode on and off. Additionally, any player can write `/ftag help` to get an explanation about FreezeTag mode.
 
-# Warning: if one impostor kills a crewmate, all of the impostors gets kicked.
+**Warning: if one impostor kills a crewmate, all of the impostors gets kicked.**
 
 ## Known issues
-- Issue: when impostors wins, all of the crewmates get kicked.
-- Explanation: there isn't a way to enable the impostor win by the server, the only work around that exists is kicking every crewmate. May look into this in the future
+- Issue: when impostors wins, all of the crewmates get kicked. Explanation: there isn't a way to enable the impostor win by the server, the only work around that exists is kicking every crewmate. May look into this in the future
 
 ## Credits
 - Thanks a lot to [6pak](https://github.com/6pak) and contributors to the [Impostor](https://github.com/Impostor/Impostor) project.

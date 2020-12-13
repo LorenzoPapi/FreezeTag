@@ -1,4 +1,4 @@
-## FreezeTag
+### FreezeTag
 
 *FreezeTag* is a plugin for the Among Us private server called [Impostor](https://github.com/Impostor/Impostor) that adds a new gamemode to Among Us. When the game will start, the impostors will be coloured in **RED**, the normal crewmates in **GREEN**. When an impostor gets near a crewmate, he'll *freeze* him, and the crewmate won't be able to move and will become **BLUE**. If all the crewmates become frozen, the impostors win; if the crewmates do all the tasks they win.
 

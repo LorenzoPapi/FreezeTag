@@ -1,0 +1,7 @@
+{
+  "profiles": {
+    "Impostor.Server": {
+      "commandName": "Project"
+    }
+  }
+}

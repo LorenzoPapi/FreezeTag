@@ -23,7 +23,7 @@
 **Warning: if one impostor kills a crewmate, all of the impostors gets kicked.**
 
 ## Known issues
-- Issue: when impostors wins, all of the crewmates get kicked. Explanation: there isn't a way to enable the impostor win by the server, the only work around that exists is kicking every crewmate. May look into this in the future
+- Issue: when impostors wins, all of the crewmates get kicked. Explanation: there isn't a way to enable the impostor win by the server, the only work around that exists is kicking every crewmate. May look into this in the future.
 
 ## Credits
 - Thanks a lot to [6pak](https://github.com/6pak) and contributors to the [Impostor](https://github.com/Impostor/Impostor) project.

@@ -3,13 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30709.64
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FreezeTagMovementAPI", "FreezeTagMovementAPI\FreezeTagMovementAPI.csproj", "{7762E9FC-0CCB-4C1C-AB49-987290658DBA}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Impostor.Api", "Impostor.Api\Impostor.Api.csproj", "{06FC8486-65BB-4C05-8447-1F200B455FE0}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Impostor.Hazel", "Impostor.Hazel\Impostor.Hazel.csproj", "{AFA2B252-EF05-4D0B-AA54-F86301961172}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Impostor.Server", "Impostor.Server\Impostor.Server.csproj", "{519A389C-1DB3-4EDE-8DE4-2A81E520BB54}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FreezeTag", "FreezeTag\FreezeTag.csproj", "{D29046D4-30FA-4EB2-A5EE-8E2341926860}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,10 +17,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{7762E9FC-0CCB-4C1C-AB49-987290658DBA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{7762E9FC-0CCB-4C1C-AB49-987290658DBA}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{7762E9FC-0CCB-4C1C-AB49-987290658DBA}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{7762E9FC-0CCB-4C1C-AB49-987290658DBA}.Release|Any CPU.Build.0 = Release|Any CPU
 		{06FC8486-65BB-4C05-8447-1F200B455FE0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{06FC8486-65BB-4C05-8447-1F200B455FE0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{06FC8486-65BB-4C05-8447-1F200B455FE0}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -33,6 +29,10 @@ Global
 		{519A389C-1DB3-4EDE-8DE4-2A81E520BB54}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{519A389C-1DB3-4EDE-8DE4-2A81E520BB54}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{519A389C-1DB3-4EDE-8DE4-2A81E520BB54}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D29046D4-30FA-4EB2-A5EE-8E2341926860}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D29046D4-30FA-4EB2-A5EE-8E2341926860}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D29046D4-30FA-4EB2-A5EE-8E2341926860}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D29046D4-30FA-4EB2-A5EE-8E2341926860}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

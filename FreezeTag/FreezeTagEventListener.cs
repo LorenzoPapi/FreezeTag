@@ -28,7 +28,7 @@ namespace FreezeTag
         }
 
         [EventListener]
-        public async void OnGameStarting(IGameStartingEvent e)
+        public async Task OnGameStarting(IGameStartingEvent e)
         {
             if (!DeactivatedGames.Contains(e.Game))
             {
@@ -40,7 +40,7 @@ namespace FreezeTag
         }
 
         [EventListener]
-        public async void OnGameStarted(IGameStartedEvent e)
+        public async Task OnGameStarted(IGameStartedEvent e)
         {
             if (!DeactivatedGames.Contains(e.Game))
             {
@@ -64,7 +64,7 @@ namespace FreezeTag
         }
 
         [EventListener]
-        public async void OnPlayerMovement(IPlayerMovementEvent e)
+        public async Task OnPlayerMovement(IPlayerMovementEvent e)
         {
             if (CodeAndInfos.ContainsKey(e.Game))
             {
@@ -148,7 +148,7 @@ namespace FreezeTag
         }
 
         [EventListener]
-        public async void OnPlayerDeath(IPlayerMurderEvent e)
+        public async Task OnPlayerDeath(IPlayerMurderEvent e)
         {
             if (CodeAndInfos.ContainsKey(e.Game))
             {
@@ -160,7 +160,7 @@ namespace FreezeTag
         }
 
         [EventListener]
-        public async void OnPlayerChat(IPlayerChatEvent e)
+        public async Task OnPlayerChat(IPlayerChatEvent e)
         {
             if (e.Game.GameState == GameStates.NotStarted && e.Message.StartsWith("/ftag "))
             {

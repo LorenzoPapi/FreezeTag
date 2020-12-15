@@ -11,7 +11,7 @@ private void FreezeTag() {
 
     DotNetCorePublish("./FreezeTag/FreezeTag.csproj", new DotNetCorePublishSettings {
         Configuration = Argument("configuration", "Release"),
-        NoRestore = true,
+        NoRestore = false,
         Framework = "netstandard2.1",
         Runtime = "win-x64",
         SelfContained = false,

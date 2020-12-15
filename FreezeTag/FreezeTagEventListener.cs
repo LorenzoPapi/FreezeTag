@@ -28,7 +28,7 @@ namespace FreezeTag
         }
 
         [EventListener]
-        public async Task OnGameStarting(IGameStartingEvent e)
+        public async ValueTask OnGameStarting(IGameStartingEvent e)
         {
             if (!DeactivatedGames.Contains(e.Game))
             {
@@ -40,7 +40,7 @@ namespace FreezeTag
         }
 
         [EventListener]
-        public async Task OnGameStarted(IGameStartedEvent e)
+        public async ValueTask OnGameStarted(IGameStartedEvent e)
         {
             if (!DeactivatedGames.Contains(e.Game))
             {
@@ -64,7 +64,7 @@ namespace FreezeTag
         }
 
         [EventListener]
-        public async Task OnPlayerMovement(IPlayerMovementEvent e)
+        public async ValueTask OnPlayerMovement(IPlayerMovementEvent e)
         {
             if (CodeAndInfos.ContainsKey(e.Game))
             {
@@ -148,7 +148,7 @@ namespace FreezeTag
         }
 
         [EventListener]
-        public async Task OnPlayerDeath(IPlayerMurderEvent e)
+        public async ValueTask OnPlayerDeath(IPlayerMurderEvent e)
         {
             if (CodeAndInfos.ContainsKey(e.Game))
             {
@@ -160,7 +160,7 @@ namespace FreezeTag
         }
 
         [EventListener]
-        public async Task OnPlayerChat(IPlayerChatEvent e)
+        public async ValueTask OnPlayerChat(IPlayerChatEvent e)
         {
             if (e.Game.GameState == GameStates.NotStarted && e.Message.StartsWith("/ftag "))
             {
@@ -212,7 +212,7 @@ namespace FreezeTag
             }
         }
 
-        private async Task ServerSendChatAsync(string text, IInnerPlayerControl player)
+        private async ValueTask ServerSendChatAsync(string text, IInnerPlayerControl player)
         {
             string playername = player.PlayerInfo.PlayerName;
             await player.SetNameAsync($"PublicMsg");
@@ -220,7 +220,7 @@ namespace FreezeTag
             await player.SetNameAsync(playername);
         }
 
-        private async Task ServerSendChatToPlayerAsync(string text, IInnerPlayerControl player)
+        private async ValueTask ServerSendChatToPlayerAsync(string text, IInnerPlayerControl player)
         {
             string playername = player.PlayerInfo.PlayerName;
             await player.SetNameAsync($"PrivateMsg");

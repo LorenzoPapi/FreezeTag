@@ -26,5 +26,6 @@
 - Issue: when impostors wins, all of the crewmates get kicked. Explanation: there isn't a way to enable the impostor win by the server, the only work around that exists is kicking every crewmate. May look into this in the future.
 
 ## Credits
-- Thanks a lot to [6pak](https://github.com/6pak) and contributors to the [Impostor](https://github.com/Impostor/Impostor) project.
+- Thanks a lot to [6pak](https://github.com/6pak), for creating the custom movement API that made this plugin possible.
+- Credit to the [Impostor](https://github.com/Impostor/Impostor) for the cake and appveyor script example and for the base of the Impostor server.
 - A huge thanks to my friend that gave me the idea for this.

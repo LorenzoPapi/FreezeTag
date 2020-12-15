@@ -47,4 +47,4 @@ Task("Build")
         Information("Finished building.");
     });
 
-RunTarget(Argument("target", "Build"););
+RunTarget(Argument("target", "Build"));

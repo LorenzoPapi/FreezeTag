@@ -19,7 +19,7 @@ private void FreezeTag() {
         PublishTrimmed = false,
         OutputDirectory = projBuildDir
     });
-    
+
     Zip(projBuildDir, buildDir.CombineWithFilePath(projBuildName + ".zip"));
 }
 
@@ -62,6 +62,7 @@ Task("Build")
         ServerPublish("linux-x64");
         ServerPublish("linux-arm");
         ServerPublish("linux-arm64");
+        FreezeTag();
         Information("Finished building.");
     });
 

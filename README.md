@@ -5,19 +5,15 @@
 **Note: This plugin uses a modified Impostor server version, you need it to make the plugin work.**
 
 ## Installation
-1. Download the modified server from [here](https://github.com/LorenzoPapi/FreezeTag/releases) and download the [latest release](https://github.com/LorenzoPapi/FreezeTag/releases) of the plugin.
+1. Download the latest modified server from [here](https://ci.appveyor.com/project/LorenzoPapi/freezetag/build/artifacts) and download the [latest release](https://github.com/LorenzoPapi/FreezeTag/releases) of the plugin.
 2. Set up the [Impostor server](https://github.com/Impostor/Impostor) by following the instructions on their Github page.
 3. Drop the FreezeTag.dll file in the `plugins` folder of your Impostor server.
 4. To play with your client on your private server, see the instructions on the [Impostor](https://github.com/Impostor/Impostor) page.
 
 ## How it works
-
 - When the game starts the impostors will be in **RED**. Watch out for them if you are a crewmate!
-
 - A crewmate can unfreeze a frozen crewmate by standing near him for about 2-3 seconds.
-
 - If crewmates finish all their tasks, they win. If impostors kill all of the crewmate, they win.
-
 - In the Among Us lobby, the host can use the `/ftag on` and `/ftag off` commands in the chat to turn the FreezeTag mode on and off. Additionally, any player can write `/ftag help` to get an explanation about FreezeTag mode.
 
 **Warning: if one impostor kills a crewmate, all of the impostors gets kicked.**

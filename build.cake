@@ -11,16 +11,11 @@ private void FreezeTag() {
 
     DotNetCorePublish("./FreezeTag/FreezeTag.csproj", new DotNetCorePublishSettings {
         Configuration = Argument("configuration", "Release"),
-        NoRestore = false,
-        Framework = "netstandard2.1",
-        Runtime = "win-x64",
-        SelfContained = false,
-        PublishSingleFile = false,
-        PublishTrimmed = false,
+        SelfContained = true,
         OutputDirectory = projBuildDir
     });
 
-    Zip(projBuildDir, buildDir.CombineWithFilePath(projBuildName + ".zip"));
+    //Zip(projBuildDir, buildDir.CombineWithFilePath(projBuildName + ".zip"));
 }
 
 private void ServerPublish(string runtime) {

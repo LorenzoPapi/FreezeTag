@@ -10,7 +10,7 @@ private void ServerPublish(string runtime) {
     var projBuildName = "Impostor-Server_1.2.2_" + buildId + "_" + runtime;
 
     DotNetCorePublish("./Impostor.Server/Impostor.Server.csproj", new DotNetCorePublishSettings {
-        Configuration = Argument("configuration", "Release");,
+        Configuration = Argument("configuration", "Release"),
         NoRestore = true,
         Framework = "net5.0",
         Runtime = runtime,
@@ -44,7 +44,7 @@ Task("Build")
         ServerPublish("linux-x64");
         ServerPublish("linux-arm");
         ServerPublish("linux-arm64");
-        Information("Finished.");
+        Information("Finished building.");
     });
 
 RunTarget(Argument("target", "Build"););

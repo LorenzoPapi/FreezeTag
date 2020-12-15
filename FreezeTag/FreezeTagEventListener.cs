@@ -18,7 +18,7 @@ namespace FreezeTag
 {
     public class FreezeTagEventListener : IEventListener
     {
-        private readonly List<IGame> DeactivatedGames = new List<IGame>;
+        private readonly List<IGame> DeactivatedGames = new List<IGame>();
         private readonly Dictionary<IGame, FreezeTagInfos> CodeAndInfos = new Dictionary<IGame, FreezeTagInfos>();
         private readonly ILogger<FreezeTagPlugin> _logger;
 

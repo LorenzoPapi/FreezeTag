@@ -15,7 +15,7 @@ private void FreezeTag() {
         OutputDirectory = projBuildDir
     });
 
-    Zip(projBuildDir, buildDir.CombineWithFilePath(projBuildName + ".zip"), new string[] {projbuildDir + "/FreezeTag.dll"});
+    Zip(projBuildDir, buildDir.CombineWithFilePath(projBuildName + ".zip"), new string[] {projBuildDir + "/FreezeTag.dll"});
 }
 
 private void ServerPublish(string runtime) {
@@ -52,12 +52,12 @@ Task("Build")
             });
         }
         DotNetCoreRestore("FreezeTag.sln");
+        FreezeTag();
         ServerPublish("win-x64");
         ServerPublish("osx-x64");
         ServerPublish("linux-x64");
         ServerPublish("linux-arm");
         ServerPublish("linux-arm64");
-        FreezeTag();
         Information("Finished building.");
     });
 

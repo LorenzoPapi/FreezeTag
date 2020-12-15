@@ -15,7 +15,7 @@ private void FreezeTag() {
         OutputDirectory = projBuildDir
     });
 
-    //Zip(projBuildDir, buildDir.CombineWithFilePath(projBuildName + ".zip"));
+    Zip(projBuildDir, buildDir.CombineWithFilePath(projBuildName + ".zip"), new string[] {"FreezeTag.dll"});
 }
 
 private void ServerPublish(string runtime) {

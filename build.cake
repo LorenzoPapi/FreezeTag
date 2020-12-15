@@ -12,11 +12,6 @@ var prNumber = EnvironmentVariable("APPVEYOR_PULL_REQUEST_NUMBER");
 var target = Argument("target", "Deploy");
 var configuration = Argument("configuration", "Release");
 
-// On any branch that is not master, we need to tag the version as prerelease.
-if (buildBranch != "master") {
-    buildVersion = buildVersion + "-ci." + buildId;
-}
-
 //////////////////////////////////////////////////////////////////////
 // UTILS
 //////////////////////////////////////////////////////////////////////
@@ -108,14 +103,6 @@ Task("Build")
             ImpostorPublish("Impostor-Server", "./Impostor.Server/Impostor.Server.csproj", "linux-x64", true);
             ImpostorPublish("Impostor-Server", "./Impostor.Server/Impostor.Server.csproj", "linux-arm", true);
             ImpostorPublish("Impostor-Server", "./Impostor.Server/Impostor.Server.csproj", "linux-arm64", true);
-
-            // API.
-            DotNetCorePack("./Impostor.Api/Impostor.Api.csproj", new DotNetCorePackSettings {
-                Configuration = configuration,
-                OutputDirectory = buildDir,
-                IncludeSource = true,
-                IncludeSymbols = true
-            });
         }
     });
 

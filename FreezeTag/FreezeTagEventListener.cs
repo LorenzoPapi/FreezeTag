@@ -107,7 +107,7 @@ namespace FreezeTag
                     {
                         if (sun != frozen && CheckIfColliding(sun, frozen))
                         {
-                            await Unfreeze(frozen);
+                            await Unfreeze(frozen).ConfigureAwait(true);
                             frozens.Remove(frozen, out position);
                         }
                     }

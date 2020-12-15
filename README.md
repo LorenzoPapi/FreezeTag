@@ -1,25 +1,29 @@
-### FreezeTag
+FreezeTag
+=========
 
-*FreezeTag* is a plugin for the Among Us private server called [Impostor](https://github.com/Impostor/Impostor) that adds a new gamemode to Among Us. When the game will start, the impostors will be coloured in **RED**, the normal crewmates in **GREEN**. When an impostor gets near a crewmate, he'll *freeze* him, and the crewmate won't be able to move and will become **BLUE**. If all the crewmates become frozen, the impostors win; if the crewmates do all the tasks they win.
+[![AppVeyor](https://ci.appveyor.com/api/projects/status/2xv760q7g0payy74/branch/master?svg=true)](https://ci.appveyor.com/project/LorenzoPapi/freezetag/branch/master)
+
+*FreezeTag* is a plugin for the Among Us private server called [Impostor](https://github.com/Impostor/Impostor) that adds the Freeze Tag gamemode to Among Us.
 
 **Note: This plugin uses a modified Impostor server version, you need it to make the plugin work.**
 
 ## Installation
-1. Download the latest modified server from [here](https://ci.appveyor.com/project/LorenzoPapi/freezetag/build/artifacts) and download the [latest release](https://github.com/LorenzoPapi/FreezeTag/releases) of the plugin.
-2. Set up the [Impostor server](https://github.com/Impostor/Impostor) by following the instructions on their Github page.
+1. Download the [latest modified server](https://ci.appveyor.com/project/LorenzoPapi/freezetag/branch/master/artifacts) and the [latest release](https://ci.appveyor.com/project/LorenzoPapi/freezetag/branch/master/artifacts) of the plugin.
+2. Set up the Impostor server by following the instructions on their [Github page](https://github.com/Impostor/Impostor).
 3. Drop the FreezeTag.dll file in the `plugins` folder of your Impostor server.
-4. To play with your client on your private server, see the instructions on the [Impostor](https://github.com/Impostor/Impostor) page.
+4. To play on your server, see the instructions on the [Impostor](https://github.com/Impostor/Impostor) page.
 
 ## How it works
-- When the game starts the impostors will be in **RED**. Watch out for them if you are a crewmate!
+- When the game starts the impostors will be in **RED**, crewmates in **GREEN**. Watch out for the impostors if you are a crewmate!
+- The goal of the impostors is to freeze every crewmate. A crewmate becomes frozen and **BLUE** if an impostor stays near him.
 - A crewmate can unfreeze a frozen crewmate by standing near him for about 2-3 seconds.
-- If crewmates finish all their tasks, they win. If impostors kill all of the crewmate, they win.
+- If the crewmates finish all their tasks, they win.
 - In the Among Us lobby, the host can use the `/ftag on` and `/ftag off` commands in the chat to turn the FreezeTag mode on and off. Additionally, any player can write `/ftag help` to get an explanation about FreezeTag mode.
 
-**Warning: if one impostor kills a crewmate, all of the impostors gets kicked.**
+- **Warning: if one impostor kills a crewmate, all of the impostors gets kicked.**
 
 ## Known issues
-- Issue: when impostors wins, all of the crewmates get kicked. Explanation: there isn't a way to enable the impostor win by the server, the only work around that exists is kicking every crewmate. May look into this in the future.
+- When impostors wins, all of the crewmates get kicked; there isn't a way to enable the impostors win by the server, the only work around that exists is kicking every crewmate. May look into this in the future.
 
 ## Credits
 - Thanks a lot to [6pak](https://github.com/6pak), for creating the custom movement API that made this plugin possible.

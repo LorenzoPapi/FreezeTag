@@ -5,6 +5,24 @@
 var buildId = EnvironmentVariable("APPVEYOR_BUILD_VERSION") ?? "0";
 var buildDir = MakeAbsolute(Directory("./build"));
 
+private void FreezeTag() {
+    var projBuildDir = buildDir.Combine("FreezeTag");
+    var projBuildName = "FreezeTag_" + buildId;
+
+    DotNetCorePublish("./FreezeTag/FreezeTag.csproj", new DotNetCorePublishSettings {
+        Configuration = Argument("configuration", "Release"),
+        NoRestore = true,
+        Framework = "netstandard2.1",
+        Runtime = "win-x64",
+        SelfContained = false,
+        PublishSingleFile = false,
+        PublishTrimmed = false,
+        OutputDirectory = projBuildDir
+    });
+    
+    Zip(projBuildDir, buildDir.CombineWithFilePath(projBuildName + ".zip"));
+}
+
 private void ServerPublish(string runtime) {
     var projBuildDir = buildDir.Combine("Impostor-Server_" + runtime);
     var projBuildName = "Impostor-Server_1.2.2_" + buildId + "_" + runtime;

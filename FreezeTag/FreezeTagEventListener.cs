@@ -18,9 +18,16 @@ namespace FreezeTag
 {
     public class FreezeTagEventListener : IEventListener
     {
+        private readonly string help = "Freeze Tag is a custom Among Us mode.\n" +
+                            "Impostors are red, crewmates are green. The impostors can freeze the crewmates by standing near them.\n" +
+                            "The crewmates can unfreeze the frozen crewmates by standing near of them.\n" +
+                            "Objective of the impostors: freeze everyone.\n" +
+                            "Objective of the crewmates: finish all their tasks.\n" +
+                            "If a crewmate gets killed, the impostors get kicked!";
         private readonly List<IGame> DeactivatedGames = new List<IGame>();
         private readonly Dictionary<IGame, FreezeTagInfos> CodeAndInfos = new Dictionary<IGame, FreezeTagInfos>();
         private readonly ILogger<FreezeTagPlugin> _logger;
+        private const float radius = 0.2f;
 
         public FreezeTagEventListener(ILogger<FreezeTagPlugin> logger)
         {
@@ -70,24 +77,32 @@ namespace FreezeTag
             {
                 List<IClientPlayer> impostors = CodeAndInfos[e.Game].impostors;
                 ConcurrentDictionary<IClientPlayer, Vector2> frozens = CodeAndInfos[e.Game].frozens;
+
+                //Gives an iterator of all non-frozen crewmates
                 IEnumerable<IClientPlayer> crewmates = e.Game.Players.Except(impostors).Except(frozens.Keys);
 
+                //All crewmates are frozen, starting impostor winning process
                 if (!crewmates.Any())
                 {
+                    //Every non impostor gets kicked
                     foreach (var nonImpostor in e.Game.Players.Except(impostors))
                     {
                         await nonImpostor.KickAsync();
                     }
                 }
 
+                
                 foreach (var impostor in impostors)
                 {
+                    //I am not updating the list if an impostor leaves, so I'll leave this check here for now
                     if (impostor.Character != null)
                     {
                         foreach (var crewmate in crewmates)
-                        {
+                        {   
+                            //Checks if near impostor
                             if (CheckIfColliding(crewmate, impostor))
                             {
+                                //Puts crewmate in list and makes him blue
                                 frozens.TryAdd(crewmate, crewmate.Character.NetworkTransform.Position);
                                 await crewmate.Character.SetColorAsync(ColorType.Blue);
                             }
@@ -99,10 +114,13 @@ namespace FreezeTag
                 {
                     IClientPlayer frozen = pair.Key;
                     Vector2 position = pair.Value;
+
+                    //The frozen tries to move
                     if (frozen.Character.NetworkTransform.Position != position)
                     {
                         await frozen.Character.NetworkTransform.SnapToAsync(position);
                     }
+
                     foreach (var sun in crewmates)
                     {
                         if (sun != frozen && CheckIfColliding(sun, frozen))
@@ -123,7 +141,7 @@ namespace FreezeTag
             float crewmateY = (float)Math.Round(crewmatePos.Y, 1);
             float impostorX = (float)Math.Round(impostorPos.X, 1);
             float impostorY = (float)Math.Round(impostorPos.Y, 1);
-            if (crewmateX <= impostorX + 0.2 && crewmateX >= impostorX - 0.2 && crewmateY <= impostorY + 0.2 && crewmateY >= impostorY - 0.2)
+            if (crewmateX <= impostorX + radius && crewmateX >= impostorX - radius && crewmateY <= impostorY + radius && crewmateY >= impostorY - radius)
             {
                 return true;
             }
@@ -175,11 +193,11 @@ namespace FreezeTag
                                 await ServerSendChatAsync("Freeze Tag activated for this game.", e.ClientPlayer.Character);
                             } else
                             {
-                                await ServerSendChatAsync("Freeze Tag was already active.", e.ClientPlayer.Character);
+                                await ServerSendChatAsync("Freeze Tag was already active.", e.ClientPlayer.Character, true);
                             }
                         } else
                         {
-                            await ServerSendChatToPlayerAsync("You can't enable Freeze Tag because you aren't the host.", e.ClientPlayer.Character);
+                            await ServerSendChatAsync("You can't enable Freeze Tag because you aren't the host.", e.ClientPlayer.Character, true);
                         }
                         break;
                     case "off":
@@ -192,39 +210,33 @@ namespace FreezeTag
                             }
                             else
                             {
-                                await ServerSendChatAsync("Freeze Tag was already off.", e.ClientPlayer.Character);
+                                await ServerSendChatAsync("Freeze Tag was already off.", e.ClientPlayer.Character, true);
                             }
                         }
                         else
                         {
-                            await ServerSendChatToPlayerAsync("You can't disable Freeze Tag because you aren't the host.", e.ClientPlayer.Character);
+                            await ServerSendChatAsync("You can't disable Freeze Tag because you aren't the host.", e.ClientPlayer.Character, true);
                         }
                         break;
                     case "help":
-                        await ServerSendChatToPlayerAsync("Freeze Tag is a custom Among Us mode.", e.ClientPlayer.Character);
-                        await ServerSendChatToPlayerAsync("Impostors are red, crewmates are green. The impostors can freeze the crewmates by standing near them.", e.ClientPlayer.Character);
-                        await ServerSendChatToPlayerAsync("The crewmates can unfreeze the frozen crewmates by standing near of them.", e.ClientPlayer.Character);
-                        await ServerSendChatToPlayerAsync("Objective of the impostors: freeze everyone.", e.ClientPlayer.Character);
-                        await ServerSendChatToPlayerAsync("Objective of the crewmates: finish all their tasks.", e.ClientPlayer.Character);
-                        await ServerSendChatToPlayerAsync("If a crewmate gets killed, the impostors get killed!", e.ClientPlayer.Character);
+                        await ServerSendChatAsync(help, e.ClientPlayer.Character, true);
                         break;
                 }
             }
         }
 
-        private async ValueTask ServerSendChatAsync(string text, IInnerPlayerControl player)
+        private async ValueTask ServerSendChatAsync(string text, IInnerPlayerControl player, bool toPlayer = false)
         {
             string playername = player.PlayerInfo.PlayerName;
-            await player.SetNameAsync($"PublicMsg");
-            await player.SendChatAsync($"{text}");
-            await player.SetNameAsync(playername);
-        }
-
-        private async ValueTask ServerSendChatToPlayerAsync(string text, IInnerPlayerControl player)
-        {
-            string playername = player.PlayerInfo.PlayerName;
-            await player.SetNameAsync($"PrivateMsg");
-            await player.SendChatToPlayerAsync($"{text}");
+            await player.SetNameAsync($"Server");
+            if (toPlayer)
+            {
+                await player.SendChatToPlayerAsync($"{text}");
+            }
+            else
+            {
+                await player.SendChatAsync($"{text}");
+            }
             await player.SetNameAsync(playername);
         }
     }

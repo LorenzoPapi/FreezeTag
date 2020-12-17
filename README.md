@@ -8,7 +8,7 @@ FreezeTag
 ### **Note: This plugin uses a modified Impostor server version, you need it to make the plugin work.**
 
 ## Installation
-1. Download the [latest modified server](https://ci.appveyor.com/project/LorenzoPapi/freezetag/branch/master/artifacts) and the [latest release](https://ci.appveyor.com/project/LorenzoPapi/freezetag/branch/master/artifacts) of the plugin.
+1. Download the **[latest modified server](https://ci.appveyor.com/project/LorenzoPapi/freezetag/branch/master/artifacts)** and the [latest release](https://ci.appveyor.com/project/LorenzoPapi/freezetag/branch/master/artifacts) of the plugin.
 2. Set up the Impostor server by following the instructions on their [Github page](https://github.com/Impostor/Impostor).
 3. Drop the FreezeTag.dll file in the `plugins` folder of your Impostor server.
 4. To play on your server, see the instructions on the [Impostor](https://github.com/Impostor/Impostor) page.

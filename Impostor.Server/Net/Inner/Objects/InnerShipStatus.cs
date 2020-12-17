@@ -46,8 +46,7 @@ namespace Impostor.Server.Net.Inner.Objects
             Components.Add(this);
         }
 
-        public override ValueTask HandleRpc(ClientPlayer sender, ClientPlayer? target, RpcCalls call,
-            IMessageReader reader)
+        public override ValueTask HandleRpc(ClientPlayer sender, ClientPlayer? target, RpcCalls call, IMessageReader reader)
         {
             switch (call)
             {

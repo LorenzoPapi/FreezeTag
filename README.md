@@ -19,11 +19,17 @@ FreezeTag
 - A crewmate can unfreeze a frozen crewmate by standing near him for about 2-3 seconds.
 - If the crewmates finish all their tasks, they win.
 - In the Among Us lobby, the host can use the `/ftag on` and `/ftag off` commands in the chat to turn the FreezeTag mode on and off. Additionally, any player can write `/ftag help` to get an explanation about FreezeTag mode.
-
+- 
+- **Sabotaging is not allowed, venting is.**
 - **Warning: if one impostor kills a crewmate, all of the impostors gets kicked.**
 
 ## Known issues
-- When impostors wins, all of the crewmates get kicked; there isn't a way to enable the impostors win by the server, the only work around that exists is kicking every crewmate. May look into this in the future.
+- *When impostors wins, all of the crewmates get kicked*; there isn't a way to enable the impostors win by the server, the only work around that exists is kicking every crewmate. May look into this in the future.
+- *My friends don't follow the rules and sabotage, help!*; I'm trying to make it that if sabotage happens, impostor gets kicked, be ready for a new release.
+
+## Contributing and reporting issues
+- Before posting your issue be sure to have the latest modified impostor server and the latest plugin.
+- If you want to try to solve issues or add functionalities, don't be shy and make your changes in a fork! Then make a pull request where you write what you modified and what issue should close.
 
 ## Credits
 - Thanks a lot to [6pak](https://github.com/6pak), for creating the custom movement API that made this plugin possible.

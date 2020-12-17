@@ -23,7 +23,8 @@ namespace FreezeTag
                             "The crewmates can unfreeze the frozen crewmates by standing near of them.\n" +
                             "Objective of the impostors: freeze everyone.\n" +
                             "Objective of the crewmates: finish all their tasks.\n" +
-                            "If a crewmate gets killed, the impostors get kicked!";
+                            "If a crewmate gets killed, the impostors get kicked!\n" +
+                            "SABOTAGING IS NOT ALLOWED.";
         private readonly List<IGame> DeactivatedGames = new List<IGame>();
         private readonly Dictionary<IGame, FreezeTagInfos> CodeAndInfos = new Dictionary<IGame, FreezeTagInfos>();
         private readonly ILogger<FreezeTagPlugin> _logger;

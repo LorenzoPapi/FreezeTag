@@ -5,7 +5,7 @@ FreezeTag
 
 *FreezeTag* is a plugin for the Among Us private server called [Impostor](https://github.com/Impostor/Impostor) that adds the Freeze Tag gamemode to Among Us.
 
-**Note: This plugin uses a modified Impostor server version, you need it to make the plugin work.**
+### **Note: This plugin uses a modified Impostor server version, you need it to make the plugin work.**
 
 ## Installation
 1. Download the [latest modified server](https://ci.appveyor.com/project/LorenzoPapi/freezetag/branch/master/artifacts) and the [latest release](https://ci.appveyor.com/project/LorenzoPapi/freezetag/branch/master/artifacts) of the plugin.

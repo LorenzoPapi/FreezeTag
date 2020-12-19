@@ -1,6 +1,7 @@
 using System.Threading.Tasks;
 using Impostor.Api.Innersloth.Customization;
 using Impostor.Api.Net.Inner.Objects.Components;
+using Impostor.Api.Events.Player;
 
 namespace Impostor.Api.Net.Inner.Objects
 {
@@ -112,5 +113,14 @@ namespace Impostor.Api.Net.Inner.Objects
         /// /// <param name="impostor">The Impostor who kill.</param>
         /// <returns>Task that must be awaited.</returns>
         ValueTask SetMurderedByAsync(IClientPlayer impostor);
+
+        /// <summary>
+        ///     Sets the current to be murdered by an impostor <see cref="IInnerPlayerControl"/>.
+        ///     Visible to all players.
+        ///     The <see cref="IPlayerMurderEvent"/> isn't fired.
+        /// </summary>
+        /// /// <param name="impostor">The Impostor who kill.</param>
+        /// <returns>Task that must be awaited.</returns>
+        ValueTask SetMurderedByAsyncNoEvent(IClientPlayer impostor);
     }
 }

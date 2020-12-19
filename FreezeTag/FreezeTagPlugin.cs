@@ -10,7 +10,7 @@ namespace FreezeTag
         package: "LorenzoPapi\'s Gamemodes",
         name: "Freeze Tag",
         author: "LorenzoPapi",
-        version: "1.0.0")]
+        version: "1.1.0")]
     public class FreezeTagPlugin : PluginBase
     {
         private readonly ILogger<FreezeTagPlugin> _logger;

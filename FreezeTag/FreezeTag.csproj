@@ -1,9 +1,10 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.1</TargetFramework>
+    <TargetFramework>net5.0</TargetFramework>
     <AssemblyName>FreezeTag</AssemblyName>
     <RootNamespace>FreezeTag</RootNamespace>
+    <OutputType>Library</OutputType>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
@@ -12,6 +13,8 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Impostor.Api\Impostor.Api.csproj" />
+    <ProjectReference Include="..\Impostor.Hazel\Impostor.Hazel.csproj" />
+    <ProjectReference Include="..\Impostor.Server\Impostor.Server.csproj" />
   </ItemGroup>
 	
 </Project>

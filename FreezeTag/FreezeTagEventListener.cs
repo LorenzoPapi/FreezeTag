@@ -5,6 +5,8 @@ using Impostor.Api.Innersloth;
 using Impostor.Api.Innersloth.Customization;
 using Impostor.Api.Net;
 using Impostor.Api.Net.Inner.Objects;
+using Impostor.Api.Net.Messages;
+using Impostor.Server.Net.Inner;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Concurrent;
@@ -24,9 +26,10 @@ namespace FreezeTag
                             "Objective of the impostors: freeze everyone.\n" +
                             "Objective of the crewmates: finish all their tasks.\n" +
                             "If a crewmate gets killed, the impostors get kicked!\n" +
-                            "SABOTAGING IS NOT ALLOWED.";
-        private readonly List<IGame> DeactivatedGames = new List<IGame>();
-        private readonly Dictionary<IGame, FreezeTagInfos> CodeAndInfos = new Dictionary<IGame, FreezeTagInfos>();
+                            "SABOTAGING IS NOT ALLOWED, VENTING IS.\n" +
+                            "Made by LorenzoPapi";
+        private readonly List<IGame> DeactivatedGames = new();
+        private readonly Dictionary<IGame, FreezeTagInfos> CodeAndInfos = new();
         private readonly ILogger<FreezeTagPlugin> _logger;
         private const float radius = 0.2f;
 
@@ -40,7 +43,6 @@ namespace FreezeTag
         {
             if (!DeactivatedGames.Contains(e.Game))
             {
-                e.Game.Options.KillCooldown = int.MaxValue;
                 e.Game.Options.NumEmergencyMeetings = 0;
                 await e.Game.SyncSettingsAsync();
             }
@@ -52,8 +54,8 @@ namespace FreezeTag
         {
             if (!DeactivatedGames.Contains(e.Game))
             {
-                List<IClientPlayer> impostors = new List<IClientPlayer>();
-                ConcurrentDictionary<IClientPlayer, Vector2> frozen = new ConcurrentDictionary<IClientPlayer, Vector2>();
+                List<IClientPlayer> impostors = new();
+                ConcurrentDictionary<IClientPlayer, Vector2> frozen = new();
 
                 foreach (var player in e.Game.Players)
                 {
@@ -72,10 +74,38 @@ namespace FreezeTag
         }
 
         [EventListener]
+        public async ValueTask OnDoorStateChanged(IGameDoorStateChangedEvent e)
+        {
+            // When Door closes, open it
+            // If no work, then just do kill
+            if (!e.IsOpen && !DeactivatedGames.Contains(e.Game))
+            {
+                foreach (var player in e.Game.Players)
+                {
+                    using var w = Impostor.Hazel.MessageWriter.Get(MessageType.Reliable);
+                    w.StartMessage(MessageFlags.GameData);
+                    w.Write(e.Game.Code);
+                    //Lenght of message is already written by StartMessage
+                    w.StartMessage(GameDataTag.DataFlag);
+                    w.WritePacked(e.Game.GameNet.ShipStatus.NetId);
+                    w.WritePacked(65536);
+                    w.WritePacked(e.DoorMask);
+                    w.Write(true);
+                    w.EndMessage();
+
+                    w.EndMessage();
+                    await e.Game.SendToAsync(w, player.Client.Id);
+                    _logger.LogTrace("Packet sent");
+                }
+            }
+        }
+
+        [EventListener]
         public async ValueTask OnPlayerMovement(IPlayerMovementEvent e)
         {
             if (CodeAndInfos.ContainsKey(e.Game))
             {
+
                 List<IClientPlayer> impostors = CodeAndInfos[e.Game].impostors;
                 ConcurrentDictionary<IClientPlayer, Vector2> frozens = CodeAndInfos[e.Game].frozens;
 
@@ -88,7 +118,7 @@ namespace FreezeTag
                     //Every non impostor gets kicked
                     foreach (var nonImpostor in e.Game.Players.Except(impostors))
                     {
-                        await nonImpostor.KickAsync();
+                        await nonImpostor.Character.SetMurderedByAsyncNoEvent(impostors[0]);
                     }
                 }
 
@@ -173,7 +203,7 @@ namespace FreezeTag
             {
                 foreach (var impostor in CodeAndInfos[e.Game].impostors)
                 {
-                    await impostor.KickAsync();
+                    await impostor.Character.SetMurderedByAsyncNoEvent(impostor);
                 }
             }
         }

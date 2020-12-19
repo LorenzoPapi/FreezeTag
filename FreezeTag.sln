@@ -14,6 +14,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Impostor.Hazel", "Impostor.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Impostor.Server", "Impostor.Server\Impostor.Server.csproj", "{6B4C424D-D489-4640-A7A1-292DAD9118A2}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MessageReader", "MessageReader\MessageReader.csproj", "{F1921C38-BF03-4DA7-9419-26BDB58FADA9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -36,6 +38,10 @@ Global
 		{6B4C424D-D489-4640-A7A1-292DAD9118A2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6B4C424D-D489-4640-A7A1-292DAD9118A2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6B4C424D-D489-4640-A7A1-292DAD9118A2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F1921C38-BF03-4DA7-9419-26BDB58FADA9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F1921C38-BF03-4DA7-9419-26BDB58FADA9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F1921C38-BF03-4DA7-9419-26BDB58FADA9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F1921C38-BF03-4DA7-9419-26BDB58FADA9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

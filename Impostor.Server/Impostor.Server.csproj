@@ -17,6 +17,7 @@
     <Product>Impostor.Server</Product>
     <Copyright>Copyright © AeonLucid 2020</Copyright>
     <Version>1.2.2</Version>
+    <StartupObject></StartupObject>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
@@ -58,5 +59,4 @@
       <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
     </Content>
   </ItemGroup>
-
 </Project>

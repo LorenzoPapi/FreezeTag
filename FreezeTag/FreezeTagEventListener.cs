@@ -5,8 +5,6 @@ using Impostor.Api.Innersloth;
 using Impostor.Api.Innersloth.Customization;
 using Impostor.Api.Net;
 using Impostor.Api.Net.Inner.Objects;
-using Impostor.Api.Net.Messages;
-using Impostor.Server.Net.Inner;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Concurrent;
@@ -20,13 +18,13 @@ namespace FreezeTag
 {
     public class FreezeTagEventListener : IEventListener
     {
-        private readonly string help = "Freeze Tag is a custom Among Us mode.\n" +
-                            "Impostors are red, crewmates are green. The impostors can freeze the crewmates by standing near them.\n" +
-                            "The crewmates can unfreeze the frozen crewmates by standing near of them.\n" +
-                            "Objective of the impostors: freeze everyone.\n" +
-                            "Objective of the crewmates: finish all their tasks.\n" +
-                            "If a crewmate gets killed, the impostors get kicked!\n" +
-                            "SABOTAGING IS NOT ALLOWED, VENTING IS.\n" +
+        private readonly string help = "Freeze Tag is a custom Among Us mode. " +
+                            "Impostors are red, crewmates are green. The impostors can freeze the crewmates by standing near them. " +
+                            "The crewmates can unfreeze the frozen crewmates by standing near of them. " +
+                            "Objective of the impostors: freeze everyone. " +
+                            "Objective of the crewmates: finish all their tasks. " +
+                            "If a crewmate gets killed or if an impostor sabotages, the impostors get killed." +
+                            "If you're the host you can enable or disable the FreezeTag mode for the lobby with /ftag off or /ftag on" +
                             "Made by LorenzoPapi";
         private readonly List<IGame> DeactivatedGames = new();
         private readonly Dictionary<IGame, FreezeTagInfos> CodeAndInfos = new();
@@ -76,28 +74,14 @@ namespace FreezeTag
         [EventListener]
         public async ValueTask OnDoorStateChanged(IGameDoorStateChangedEvent e)
         {
-            // When Door closes, open it
-            // If no work, then just do kill
-            if (!e.IsOpen && !DeactivatedGames.Contains(e.Game))
+            if (!e.IsOpen && CodeAndInfos.ContainsKey(e.Game))
             {
-                foreach (var player in e.Game.Players)
+                foreach (var impostor in CodeAndInfos[e.Game].impostors.Where((player) => player != null && !player.Character.PlayerInfo.IsDead))
                 {
-                    using var w = Impostor.Hazel.MessageWriter.Get(MessageType.Reliable);
-                    w.StartMessage(MessageFlags.GameData);
-                    w.Write(e.Game.Code);
-                    //Lenght of message is already written by StartMessage
-                    w.StartMessage(GameDataTag.DataFlag);
-                    w.WritePacked(e.Game.GameNet.ShipStatus.NetId);
-                    w.WritePacked(65536);
-                    w.WritePacked(e.DoorMask);
-                    w.Write(true);
-                    w.EndMessage();
-
-                    w.EndMessage();
-                    await e.Game.SendToAsync(w, player.Client.Id);
-                    _logger.LogTrace("Packet sent");
+                    await impostor.Character.SetMurderedByAsyncNoEvent(impostor);
                 }
             }
+            ClearDict(e);
         }
 
         [EventListener]
@@ -105,7 +89,6 @@ namespace FreezeTag
         {
             if (CodeAndInfos.ContainsKey(e.Game))
             {
-
                 List<IClientPlayer> impostors = CodeAndInfos[e.Game].impostors;
                 ConcurrentDictionary<IClientPlayer, Vector2> frozens = CodeAndInfos[e.Game].frozens;
 
@@ -115,11 +98,12 @@ namespace FreezeTag
                 //All crewmates are frozen, starting impostor winning process
                 if (!crewmates.Any())
                 {
-                    //Every non impostor gets kicked
+                    //Every non impostor gets killed
                     foreach (var nonImpostor in e.Game.Players.Except(impostors))
                     {
                         await nonImpostor.Character.SetMurderedByAsyncNoEvent(impostors[0]);
                     }
+                    ClearDict(e);
                 }
 
                 
@@ -172,11 +156,7 @@ namespace FreezeTag
             float crewmateY = (float)Math.Round(crewmatePos.Y, 1);
             float impostorX = (float)Math.Round(impostorPos.X, 1);
             float impostorY = (float)Math.Round(impostorPos.Y, 1);
-            if (crewmateX <= impostorX + radius && crewmateX >= impostorX - radius && crewmateY <= impostorY + radius && crewmateY >= impostorY - radius)
-            {
-                return true;
-            }
-            return false;
+            return (crewmateX <= impostorX + radius && crewmateX >= impostorX - radius && crewmateY <= impostorY + radius && crewmateY >= impostorY - radius);
         }
 
         private async ValueTask Unfreeze(IClientPlayer frozen)
@@ -187,6 +167,11 @@ namespace FreezeTag
 
         [EventListener]
         public void OnGameEnded(IGameEndedEvent e)
+        {
+            ClearDict(e);
+        }
+
+        private void ClearDict(IGameEvent e)
         {
             if (CodeAndInfos.ContainsKey(e.Game))
             {
@@ -201,16 +186,31 @@ namespace FreezeTag
         {
             if (CodeAndInfos.ContainsKey(e.Game))
             {
-                foreach (var impostor in CodeAndInfos[e.Game].impostors)
+                foreach (var impostor in CodeAndInfos[e.Game].impostors.Where((player) => player != null && !player.Character.PlayerInfo.IsDead))
                 {
                     await impostor.Character.SetMurderedByAsyncNoEvent(impostor);
                 }
             }
+            ClearDict(e);
+        }
+
+        [EventListener]
+        public async ValueTask OnSabotage(IPlayerSabotageEvent e)
+        {
+            if (CodeAndInfos.ContainsKey(e.Game))
+            {
+                foreach (var impostor in CodeAndInfos[e.Game].impostors.Where((player) => player != null && !player.Character.PlayerInfo.IsDead))
+                {
+                    await impostor.Character.SetMurderedByAsyncNoEvent(impostor);
+                }
+            }
+            ClearDict(e);
         }
 
         [EventListener]
         public async ValueTask OnPlayerChat(IPlayerChatEvent e)
         {
+            await e.PlayerControl.SendChatAsync(e.Message);
             if (e.Game.GameState == GameStates.NotStarted && e.Message.StartsWith("/ftag "))
             {
                 switch (e.Message.ToLowerInvariant()[6..])
@@ -259,7 +259,9 @@ namespace FreezeTag
         private async ValueTask ServerSendChatAsync(string text, IInnerPlayerControl player, bool toPlayer = false)
         {
             string playername = player.PlayerInfo.PlayerName;
-            await player.SetNameAsync($"Server");
+            byte playercolor = player.PlayerInfo.ColorId;
+            await player.SetNameAsync("Server");
+            await player.SetColorAsync(ColorType.Black);
             if (toPlayer)
             {
                 await player.SendChatToPlayerAsync($"{text}");
@@ -268,6 +270,7 @@ namespace FreezeTag
             {
                 await player.SendChatAsync($"{text}");
             }
+            await player.SetColorAsync(playercolor);
             await player.SetNameAsync(playername);
         }
     }

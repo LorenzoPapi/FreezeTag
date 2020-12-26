@@ -20,6 +20,7 @@
         ShipTasks = 15,
         Doors = 16,
         Sabotage = 17,
+
         /// <summary>
         /// Decontam on Mira and bottom decontam on Polus
         /// </summary>
@@ -31,12 +32,13 @@
         Office = 23,
         Greenhouse = 24,
         Dropship = 25,
+
         /// <summary>
         /// Top decontam on Polus
         /// </summary>
         Decontamination2 = 26,
         Outside = 27,
         Specimens = 28,
-        BoilerRoom = 29
+        BoilerRoom = 29,
     }
 }

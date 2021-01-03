@@ -52,7 +52,7 @@ namespace Impostor.Server.Net.Inner.Objects.Components
             var ventId = reader.ReadPackedUInt32();
             var ventEnter = call == RpcCalls.EnterVent;
 
-            _logger.LogTrace($"{sender.Character.NetworkTransform.Position.X},{sender.Character.NetworkTransform.Position.Y}");
+            _logger.LogTrace($"{sender.Character.NetworkTransform.Position.X}; {sender.Character.NetworkTransform.Position.Y}");
             _logger.LogTrace($"{ventId}");
 
             await _eventManager.CallAsync(new PlayerVentEvent(_game, sender, _playerControl, (VentLocation)ventId, ventEnter));
